@@ -36,7 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'NewsCollector'
+    'NewsCollector',
+    'tastypie',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -119,7 +121,7 @@ DATABASES = {
         'NAME': 'hacker_news',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

@@ -3,7 +3,7 @@ import datetime
 
 # Create your models here.
 class HackerNewsArticles(models.Model):
-  article_id = models.CharField(unique=True, primary_key=True)
+  article_id = models.CharField(unique=True, primary_key=True, max_length=255)
   article_name = models.CharField('Name', max_length=1000, blank=True, null=True)
   article_comment_count = models.CharField('CommentCount', max_length=500, blank=True, null=True)
   article_upvotes = models.CharField('Upvotes', max_length=500, blank=True, null=True)

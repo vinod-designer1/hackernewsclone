@@ -36,7 +36,7 @@ def is_json(myjson):
 class HackerNewsFetcher():
 
   def __init__(self, n):
-    self.n = n
+    self.n = int(n)
   
   def get_item_details(self, item_id):
     """
@@ -44,6 +44,8 @@ class HackerNewsFetcher():
     They're identified by their ids, which are unique integers, 
     and can be fetched using https://hacker-news.firebaseio.com/v0/item/<item_id>.json?print=pretty.
     """
+    stdLogger.debug('Started Getting Item Details for id %s', item_id)
+
     url = "https://hacker-news.firebaseio.com/v0/item/%s.json?print=pretty" % (str(item_id),)
     response = urlopener(url)
     item_details = {}
@@ -61,6 +63,8 @@ class HackerNewsFetcher():
     we can fetch them from 
     https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty
     """
+    stdLogger.debug('Started Getting all top story ids')
+
     url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
     response = urlopener(url)
     list_of_top_story_ids = []
@@ -80,6 +84,8 @@ class HackerNewsFetcher():
     This method returns list of to n top stories in hackernews along with following details
     id, posted_by, url, upvotes, comments, title, posted_on(time)
     """
+    stdLogger.debug('Started Getting all top story details')
+
     # Get n top story ids
     ids_of_top_n_stories = self.get_n_topstory_ids()
 
