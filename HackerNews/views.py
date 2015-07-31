@@ -5,9 +5,13 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 import json
 from utils.common import is_json
 from django.contrib.auth import logout
+from NewsCollector.models import HackerNewsArticles
+from UserNews.models import UserNewsRelation
+from utils.common import is_json
+from django.core import serializers
 
 # Create your views here.
-def homepage(request):
+def homepage_view(request):
   return render(request, 'index.html')
 
 
@@ -77,6 +81,27 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+
+def get_user_articles(request):
+  articles = get_articles(request)
+  articles_with_user_data = []
+
+  user_articles = UserNewsRelation.objects.filter(read=True, deleted=False, )
+
+  for article in articles:
+    pass
+
+def get_articles(request):
+  articles = HackerNewsArticles.objects.order_by('created_date')[:90]
+  return articles
+
+# Create your views here.
+def get_articles_view(request):
+  articles = get_articles(request)
+  articles_json = serializers.serialize('json', articles, indent=2)
+
+  return HttpResponse(articles_json, mimetype="application/json")
 
 
     

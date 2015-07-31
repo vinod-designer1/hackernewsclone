@@ -1,8 +1,9 @@
 from django.db import models
 import datetime
+from HackerNews.models import BaseModel
 
 # Create your models here.
-class HackerNewsArticles(models.Model):
+class HackerNewsArticles(BaseModel):
   article_id = models.CharField(unique=True, primary_key=True, max_length=255)
   article_name = models.CharField('Name', max_length=1000, blank=True, null=True)
   article_comment_count = models.CharField('CommentCount', max_length=500, blank=True, null=True)

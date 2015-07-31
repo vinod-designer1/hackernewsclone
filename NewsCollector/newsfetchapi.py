@@ -2,6 +2,7 @@ import urllib2
 import httplib
 import logging
 import json
+from utils.common import is_json
 
 
 # Standard instance for logger with __name__
@@ -24,14 +25,6 @@ def urlopener(url):
     stdLogger.error('generic exception: ' + traceback.format_exc())
 
   return response
-
-def is_json(myjson):
-  try:
-    json_object = json.loads(myjson)
-  except ValueError, e:
-    return False
-  return True
-
 
 class HackerNewsFetcher():
 

@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'NewsCollector',
     'tastypie',
-    'south'
+    'south',
+    'UserNews'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -118,7 +119,7 @@ WSGI_APPLICATION = 'HackerNews.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'hacker_news',
+        'NAME': 'hackernews',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock',   # Or an IP Address that your DB is hosted on

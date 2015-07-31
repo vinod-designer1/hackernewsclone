@@ -56,19 +56,21 @@
 
   <div layout="row" flex>
     <md-content class="md-padding" flex>
-      <md-card >
+      <md-card ng-repeat="article in articles">
         <md-card-content>
-          <h2>Card headline</h2>
+          <h2>{[{ article.fields.article_name }]}</h2>
           <div layout="row">
-            <span class="md-padding">29 comments</span>
-            <span class="md-padding">30 upvotes </span>
-            <span class="md-padding">12/3/4</span>
+            <span class="md-padding">{[{ article.fields.article_comment_count }]} comments</span>
+            <span class="md-padding">{[{ article.fields.article_upvotes }]} upvotes </span>
+            <span class="md-padding">{[{ article.fields.article_posted_on }]}</span>
           </div>
         </md-card-content>
+        {% if user.is_authenticated %}
         <div class="md-actions" layout="row" layout-align="end center">
-          <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button>
+          <md-button ng-click="markarticle($event, 'read', article.pk)">Read</md-button>
+          <md-button ng-click="markarticle($event, 'remove', article.pk)">Delete</md-button>
         </div>
+         {% endif %}
       </md-card>
 
     </md-content>
