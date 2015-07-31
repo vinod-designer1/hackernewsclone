@@ -150,5 +150,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TEMPLATE_DIRS = (
-    BASE_DIR + 'templates',
+    os.path.join(BASE_DIR, 'templates'),
 )
