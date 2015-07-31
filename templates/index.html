@@ -15,9 +15,11 @@
       <span>HackerNews</span>
       <!-- fill up the space between left and right area -->
       <span flex></span>
+
+      
       
       <div layout="row">
-
+      {% if not user.is_authenticated %}
         <md-content md-theme="docs-dark" layout-padding layout="row" layout-sm="column">
           <md-input-container>
             <label>Username</label>
@@ -31,8 +33,22 @@
         </md-content>
 
 
-        <md-button>Login</md-button>
+        <md-button ng-click="login($event)">Login</md-button>
         <md-button ng-click="register($event)">Signup</md-button>
+      {% else %}
+        <md-menu>
+          <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+            {{ user.username }}
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="logout($event)">
+                Logout
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      {% endif %}
       </div>
       
     </div>
