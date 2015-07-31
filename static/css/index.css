@@ -1,0 +1,14 @@
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+
+.md-toolbar-tools {
+  background-color: #3F51B5;
+}
+
+.login-input {
+  padding-top: 3%;
+  height: 64px;
+}

@@ -1,0 +1,88 @@
+<html ng-app="NewsApp">
+<head>
+  <title>Hacker News</title>
+  <!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+
+  <link rel="stylesheet" href="/assets/css/index.css">
+
+  <meta name="viewport" content="initial-scale=1" />
+</head>
+<body ng-controller="mainCtrl">
+  <md-toolbar layout="row">
+    <div class="md-toolbar-tools">
+      <span>HackerNews</span>
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+
+      
+      
+      <div layout="row">
+      {% if not user.is_authenticated %}
+        <md-content md-theme="docs-dark" layout-padding layout="row" layout-sm="column">
+          <md-input-container>
+            <label>Username</label>
+            <input ng-model="login_details.username" type="text" placeholder="Username">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Password</label>
+            <input ng-model="login_details.password" type="password" placeholder="Password">
+          </md-input-container>
+        </md-content>
+
+
+        <md-button ng-click="login($event)">Login</md-button>
+        <md-button ng-click="register($event)">Signup</md-button>
+      {% else %}
+        <md-menu>
+          <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+            {{ user.username }}
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="logout($event)">
+                Logout
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      {% endif %}
+      </div>
+      
+    </div>
+  </md-toolbar>
+
+  <div layout="row" flex>
+    <md-content class="md-padding" flex>
+      <md-card >
+        <md-card-content>
+          <h2>Card headline</h2>
+          <div layout="row">
+            <span class="md-padding">29 comments</span>
+            <span class="md-padding">30 upvotes </span>
+            <span class="md-padding">12/3/4</span>
+          </div>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </div>
+      </md-card>
+
+    </md-content>
+  </div>
+
+
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+  <script type="text/javascript" src="/assets/js/index.js"></script>
+</body>
+</html>
