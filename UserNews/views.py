@@ -3,6 +3,7 @@ from NewsCollector.models import HackerNewsArticles
 from UserNews.models import UserNewsRelation
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest,HttpResponseNotFound
 from utils.common import is_json
+import json
 
 def mark_article_read_or_delete_view(request):
   if request.user.is_authenticated():
@@ -31,13 +32,14 @@ def mark_article_read_or_delete_view(request):
       delete = data['remove']
     else:
       return HttpResponseBadRequest(json.dumps({'error': 'should specify what action!'}), mimetype="application/json")
-
-
     
     userarticle, created = UserNewsRelation.objects.get_or_create(user=request.user, article=article)
 
-    userarticle.read = not userarticle.read
-    userarticle.delete = delete
+    if read:
+      userarticle.read = not userarticle.read
+
+    if delete:
+      userarticle.deleted = not userarticle.deleted
 
     userarticle.save()
 

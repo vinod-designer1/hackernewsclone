@@ -56,21 +56,29 @@
 
   <div layout="row" flex>
     <md-content class="md-padding" flex>
-      <md-card ng-repeat="article in articles">
+      <md-card ng-repeat="article in articles" id="article_card_{[{article.id}]}" ng-class="{'article_read':article.read}">
         <md-card-content>
-          <h2>{[{ article.fields.article_name }]}</h2>
+          <h2 ng-click="openurl(article.url)">{[{ article.name }]}</h2>
           <div layout="row">
-            <span class="md-padding">{[{ article.fields.article_comment_count }]} comments</span>
-            <span class="md-padding">{[{ article.fields.article_upvotes }]} upvotes </span>
-            <span class="md-padding">{[{ article.fields.article_posted_on }]}</span>
+            <span class="md-padding">{[{ article.comment_count }]} comments</span>
+            <span class="md-padding">{[{ article.upvotes }]} upvotes </span>
+            <span class="md-padding">{[{ article.postedon }]}</span>
           </div>
         </md-card-content>
         {% if user.is_authenticated %}
         <div class="md-actions" layout="row" layout-align="end center">
-          <md-button ng-click="markarticle($event, 'read', article.pk)">Read</md-button>
-          <md-button ng-click="markarticle($event, 'remove', article.pk)">Delete</md-button>
+          <md-button ng-click="markarticle($event, 'read', article)">
+
+            <span ng-if="!article.read">
+              Read
+            </span>
+            <span ng-if="article.read">
+              UnRead
+            </span>
+          </md-button>
+          <md-button ng-click="markarticle($event, 'remove', article.id)">Delete</md-button>
         </div>
-         {% endif %}
+        {% endif %}
       </md-card>
 
     </md-content>

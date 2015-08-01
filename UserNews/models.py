@@ -5,7 +5,7 @@ from NewsCollector.models import HackerNewsArticles
 # Create your models here.
 class UserNewsRelation(BaseModel):
   user = models.ForeignKey(User, related_name="user", blank=True, null=True)
-  article = models.ManyToManyField(HackerNewsArticles, blank=True, null=True)
+  article = models.ForeignKey(HackerNewsArticles, blank=True, null=True, related_name="article")
   read = models.BooleanField('read', default=False)
   deleted = models.BooleanField('deleted', default=False)
 

@@ -83,7 +83,13 @@ app.controller('mainCtrl', ['$scope', '$http', '$mdDialog', '$window',
            });
     };
 
-    $scope.markarticle = function($event, marktype, articleid) {
+    $scope.openurl = function(url) {
+      $window.open(url, '_blank');
+    };
+
+    $scope.markarticle = function($event, marktype, article) {
+      var articleid = article.id;
+
       var data = {
         'article_id': articleid,
       };
@@ -97,6 +103,11 @@ app.controller('mainCtrl', ['$scope', '$http', '$mdDialog', '$window',
       $http.defaults.headers.post["Content-Type"] = "application/json";
       $http.post('/markarticle/', data)
            .success(function(data, status, headers, config){
+              if (marktype == 'read') {
+                article.read = !article.read;
+              } else {
+                $('#article_card_'+articleid).remove();
+              }
               
            })
            .error(function(data, status, headers, config) {
