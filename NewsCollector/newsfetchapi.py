@@ -2,6 +2,7 @@ import urllib2
 import httplib
 import logging
 import json
+from utils.common import is_json
 
 
 # Standard instance for logger with __name__
@@ -25,14 +26,6 @@ def urlopener(url):
 
   return response
 
-def is_json(myjson):
-  try:
-    json_object = json.loads(myjson)
-  except ValueError, e:
-    return False
-  return True
-
-
 class HackerNewsFetcher():
 
   def __init__(self, n):
@@ -55,6 +48,8 @@ class HackerNewsFetcher():
       if is_json(data):
         item_details = json.loads(data)
 
+    print item_details
+
     return item_details
 
   def get_n_topstory_ids(self):
@@ -74,8 +69,10 @@ class HackerNewsFetcher():
       if is_json(data):
         list_of_top_story_ids = json.loads(data)
 
-    if len(list_of_top_story_ids) > self.n:
-      list_of_top_story_ids = list_of_top_story_ids[:self.n]
+    # if len(list_of_top_story_ids) > self.n:
+    #   list_of_top_story_ids = list_of_top_story_ids[:self.n]
+
+    # print list_of_top_story_ids
 
     return list_of_top_story_ids
 
@@ -85,6 +82,8 @@ class HackerNewsFetcher():
     id, posted_by, url, upvotes, comments, title, posted_on(time)
     """
     stdLogger.debug('Started Getting all top story details')
+
+    no_of_stories_added = 0
 
     # Get n top story ids
     ids_of_top_n_stories = self.get_n_topstory_ids()
@@ -96,6 +95,11 @@ class HackerNewsFetcher():
       story_details = self.get_item_details(story_id)
 
       if story_details:
-        top_n_story_details.append(story_details)
+        if story_details['type'] == 'story':
+          top_n_story_details.append(story_details)
+          no_of_stories_added += 1
+
+      if no_of_stories_added == self.n:
+        break
 
     return top_n_story_details

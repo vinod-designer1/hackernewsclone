@@ -12,3 +12,7 @@
   padding-top: 3%;
   height: 64px;
 }
+
+.article_read {
+  background-color: #8BC34A !important;
+}
