@@ -88,6 +88,10 @@ def logout_view(request):
 #   should get the articles from cache reduces db requests
 #   and every user related articles should be fetched more efficiently
 def get_user_articles(request):
+  """
+  Fetches articles and structure article data
+  it check if user logged in if yes it get whether user read or delete the article
+  """
   articles = get_articles(request)
   articles_with_user_data = []
 
@@ -118,6 +122,7 @@ def get_user_articles(request):
     else:
       articles_with_user_data.append(article_info)
 
+  # sorts articles based on timestamp posted on the latest posted article is showed on top
   articles_with_user_data.sort(
     key=lambda x: (datetime.datetime.strptime(x['postedon'], '%m/%d/%Y %H:%M:%S') - datetime.datetime(1970,1,1, tzinfo=None)),
     reverse=True)
@@ -129,6 +134,9 @@ def get_articles(request):
 
 # Create your views here.
 def get_articles_view(request):
+  """
+  Api Endpoint to fetch articles
+  """
   articles = get_user_articles(request)
 
   return HttpResponse(json.dumps(articles), mimetype="application/json")
