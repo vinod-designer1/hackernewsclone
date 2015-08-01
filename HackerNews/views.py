@@ -111,6 +111,8 @@ def get_user_articles(request):
         article_info['read'] = usernews_rel.read
         if not usernews_rel.deleted:
           articles_with_user_data.append(article_info)
+      else:
+        articles_with_user_data.append(article_info)
     else:
       articles_with_user_data.append(article_info)
 
