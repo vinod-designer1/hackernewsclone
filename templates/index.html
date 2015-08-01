@@ -58,7 +58,7 @@
     <md-content class="md-padding" flex>
       <md-card ng-repeat="article in articles" id="article_card_{[{article.id}]}" ng-class="{'article_read':article.read}">
         <md-card-content>
-          <h2 ng-click="openurl(article.url)">{[{ article.name }]}</h2>
+          <h2 ng-click="openurl('https://news.ycombinator.com/item?id='+article.id)">{[{ article.name }]}</h2>
           <div layout="row">
             <span class="md-padding">{[{ article.comments }]} comments</span>
             <span class="md-padding">{[{ article.upvotes }]} upvotes </span>

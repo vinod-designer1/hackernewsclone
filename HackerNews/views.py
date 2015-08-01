@@ -103,6 +103,7 @@ def get_user_articles(request):
     article_info['postedby'] = article.article_posted_by
     article_info['comments'] = article.article_comment_count
     article_info['url'] = article.article_url
+    article_info['text'] = article.article_text
     article_info['upvotes'] = article.article_upvotes
     article_info['read'] = False
 

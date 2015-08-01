@@ -34,11 +34,17 @@ class Command(BaseCommand):
     for article in top_n_articles:
       newsarticle, created = HackerNewsArticles.objects.get_or_create(article_id=article['id'])
 
-      ##if created:
-      newsarticle.article_name = article['title']
-      newsarticle.article_url = article['url']
-      newsarticle.article_posted_by = article['by']
-      newsarticle.article_posted_on = datetime.datetime.fromtimestamp(int(article['time']))
+      if created:
+        newsarticle.article_name = article['title']
+
+        if 'url' in article:
+          newsarticle.article_url = article['url']
+
+        if 'text' in article:
+          newsarticle.article_text = article['text']
+
+        newsarticle.article_posted_by = article['by']
+        newsarticle.article_posted_on = datetime.datetime.fromtimestamp(int(article['time']))
       
       newsarticle.article_comment_count = article['descendants']
       newsarticle.article_upvotes = article['score']

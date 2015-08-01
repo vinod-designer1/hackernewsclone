@@ -6,6 +6,7 @@ from HackerNews.models import BaseModel
 class HackerNewsArticles(BaseModel):
   article_id = models.CharField(unique=True, primary_key=True, max_length=255)
   article_name = models.CharField('Name', max_length=1000, blank=True, null=True)
+  article_text = models.TextField('Text', max_length=5000, blank=True, null=True)
   article_comment_count = models.CharField('CommentCount', max_length=500, blank=True, null=True)
   article_upvotes = models.CharField('Upvotes', max_length=500, blank=True, null=True)
   article_url = models.CharField('Url', max_length=500, blank=True, null=True)
