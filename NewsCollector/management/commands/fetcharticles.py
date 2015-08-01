@@ -38,8 +38,8 @@ class Command(BaseCommand):
       newsarticle.article_name = article['title']
       newsarticle.article_url = article['url']
       newsarticle.article_posted_by = article['by']
-      newsarticle.article_posted_on = datetime.datetime.fromtimestamp(article['time'] / 1e3, tz=pytz.utc)
-
+      newsarticle.article_posted_on = datetime.datetime.fromtimestamp(int(article['time']))
+      
       newsarticle.article_comment_count = article['descendants']
       newsarticle.article_upvotes = article['score']
 
