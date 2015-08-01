@@ -130,7 +130,7 @@ def get_user_articles(request):
   return articles_with_user_data
 
 def get_articles(request):
-  articles = HackerNewsArticles.objects.order_by("modified_date")[:90]
+  articles = HackerNewsArticles.objects.order_by("-modified_date", "article_rank")[:90]
   return articles
 
 # Create your views here.

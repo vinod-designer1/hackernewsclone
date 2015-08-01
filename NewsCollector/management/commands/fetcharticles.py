@@ -8,7 +8,6 @@ import pytz
 # Standard instance for logger with __name__
 stdLogger = logging.getLogger(__name__)
 
-# @TODO need to fix datetime for article
 class Command(BaseCommand):
   help = 'fetch articles from hackernews'
 
@@ -31,7 +30,10 @@ class Command(BaseCommand):
     self.stdout.write('Extracted Articles')
 
     # Insert articles in to db
+    no_of_stories = len(top_n_articles)
     for article in top_n_articles:
+      self.stdout.write('inserting article')
+      self.stdout.write(article['title'])
       newsarticle, created = HackerNewsArticles.objects.get_or_create(article_id=article['id'])
 
       if created:
@@ -48,6 +50,9 @@ class Command(BaseCommand):
       
       newsarticle.article_comment_count = article['descendants']
       newsarticle.article_upvotes = article['score']
+      newsarticle.article_rank = no_of_stories
+
+      no_of_stories -= 1
 
       newsarticle.save()
 
