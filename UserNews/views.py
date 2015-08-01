@@ -5,7 +5,12 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from utils.common import is_json
 import json
 
+
 def mark_article_read_or_delete_view(request):
+  """
+  Endpoint view:
+  help to mark article read, unread or delete for a particular user
+  """
   if request.user.is_authenticated():
     if not is_json(request.body):
       return HttpResponseBadRequest(json.dumps({'error': 'not valid data'}), mimetype="application/json")

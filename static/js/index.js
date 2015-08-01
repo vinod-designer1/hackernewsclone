@@ -5,8 +5,8 @@ app.config(function($interpolateProvider) {
   $interpolateProvider.endSymbol('}]}');
 });
 
-app.controller('mainCtrl', ['$scope', '$http', '$mdDialog', '$window',
-  function($scope, $http, $mdDialog, $window){
+app.controller('mainCtrl', ['$scope', '$http', '$mdDialog', '$window', '$interval',
+  function($scope, $http, $mdDialog, $window, $interval){
     $scope.login_details = {
       username:'',
       password:''
@@ -143,4 +143,7 @@ app.controller('mainCtrl', ['$scope', '$http', '$mdDialog', '$window',
     };
 
     $scope.loadarticles();
+
+    $interval($scope.loadarticles, 240000);
+
 }]);
