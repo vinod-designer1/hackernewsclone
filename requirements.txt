@@ -1,6 +1,5 @@
 mysql-python
 Django==1.6.1
-django-tastypie==0.10.0
 south
 pytz
 uwsgi

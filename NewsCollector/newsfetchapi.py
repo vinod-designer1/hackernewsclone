@@ -96,7 +96,7 @@ class HackerNewsFetcher():
 
       if story_details:
         if story_details['type'] == 'story':
-          top_n_story_details.append(story_details)
+          top_n_story_details.insert(0, story_details)
           no_of_stories_added += 1
 
       if no_of_stories_added == self.n:

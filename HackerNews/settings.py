@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'NewsCollector',
-    'tastypie',
     'south',
     'UserNews'
 )
@@ -122,7 +121,7 @@ DATABASES = {
         'NAME': 'hackernews',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '/Applications/MAMP/tmp/mysql/mysql.sock',   # Or an IP Address that your DB is hosted on
+        'HOST': 'localhost',#'/Applications/MAMP/tmp/mysql/mysql.sock',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

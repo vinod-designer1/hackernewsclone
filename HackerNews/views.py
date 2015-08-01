@@ -84,7 +84,9 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-
+# @TODO imporve fetching articles as articles from last update will not change any user requested in mean time
+#   should get the articles from cache reduces db requests
+#   and every user related articles should be fetched more efficiently
 def get_user_articles(request):
   articles = get_articles(request)
   articles_with_user_data = []
@@ -122,7 +124,7 @@ def get_user_articles(request):
   return articles_with_user_data
 
 def get_articles(request):
-  articles = HackerNewsArticles.objects.order_by('modified_date')[:90]
+  articles = HackerNewsArticles.objects.order_by("modified_date")[:90]
   return articles
 
 # Create your views here.
