@@ -2,7 +2,7 @@ import urllib2
 import httplib
 import logging
 import json
-from Utils.common import is_json
+from utils.common import is_json
 
 
 # Standard instance for logger with __name__
