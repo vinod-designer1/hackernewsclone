@@ -2,7 +2,7 @@ from django.shortcuts import render
 from NewsCollector.models import HackerNewsArticles
 from UserNews.models import UserNewsRelation
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest,HttpResponseNotFound
-from utils.common import is_json
+from Utils.common import is_json
 import json
 
 

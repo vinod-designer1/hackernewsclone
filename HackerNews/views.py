@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest,HttpResponseNotFound
 import json
-from utils.common import is_json
+from Utils.common import is_json
 from django.contrib.auth import logout
 from UserNews.common import get_user_articles
 
