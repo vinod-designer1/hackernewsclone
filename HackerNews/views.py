@@ -5,10 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 import json
 from Utils.common import is_json
 from django.contrib.auth import logout
-from utils.common import is_json
-from django.core import serializers
-import datetime
-import pytz
 from UserNews.utils import get_user_articles
 
 # Create your views here.
