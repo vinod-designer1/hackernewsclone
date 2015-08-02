@@ -1,5 +1,5 @@
 from .models import UserNewsRelation
-from NewsCollector.utils import get_articles
+from NewsCollector.common import get_articles
 import datetime
 
 # @TODO imporve fetching articles as articles from last update will not change any user requested in mean time

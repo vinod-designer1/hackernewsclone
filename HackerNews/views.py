@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 import json
 from Utils.common import is_json
 from django.contrib.auth import logout
-from UserNews.utils import get_user_articles
+from UserNews.common import get_user_articles
 
 # Create your views here.
 def homepage_view(request):
