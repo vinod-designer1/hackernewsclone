@@ -5,12 +5,11 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 import json
 from utils.common import is_json
 from django.contrib.auth import logout
-from NewsCollector.models import HackerNewsArticles
-from UserNews.models import UserNewsRelation
 from utils.common import is_json
 from django.core import serializers
 import datetime
 import pytz
+from UserNews.utils import get_user_articles
 
 # Create your views here.
 def homepage_view(request):
@@ -84,62 +83,15 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-# @TODO imporve fetching articles as articles from last update will not change any user requested in mean time
-#   should get the articles from cache reduces db requests
-#   and every user related articles should be fetched more efficiently
-def get_user_articles(request):
-  """
-  Fetches articles and structure article data
-  it check if user logged in if yes it get whether user read or delete the article
-  """
-  articles = get_articles(request)
-  articles_with_user_data = []
 
-  for article in articles:
-    article_info = {}
-    article_info['id'] = article.article_id
-    article_info['name'] = article.article_name
-    article_info['postedon'] = article.article_posted_on.strftime('%m/%d/%Y %H:%M:%S')
-    article_info['postedby'] = article.article_posted_by
-    article_info['comments'] = article.article_comment_count
-    article_info['url'] = article.article_url
-    article_info['text'] = article.article_text
-    article_info['upvotes'] = article.article_upvotes
-    article_info['read'] = False
-
-
-    if request.user.is_authenticated():
-      try:
-        usernews_rel = UserNewsRelation.objects.get(user=request.user, article=article)
-      except UserNewsRelation.DoesNotExist:
-        usernews_rel = None
-
-      if usernews_rel:
-        article_info['read'] = usernews_rel.read
-        if not usernews_rel.deleted:
-          articles_with_user_data.append(article_info)
-      else:
-        articles_with_user_data.append(article_info)
-    else:
-      articles_with_user_data.append(article_info)
-
-  # sorts articles based on timestamp posted on the latest posted article is showed on top
-  articles_with_user_data.sort(
-    key=lambda x: (datetime.datetime.strptime(x['postedon'], '%m/%d/%Y %H:%M:%S') - datetime.datetime(1970,1,1, tzinfo=None)),
-    reverse=True)
-  return articles_with_user_data
-
-def get_articles(request):
-  limit = request.GET.get('limit', 90)
-  articles = HackerNewsArticles.objects.order_by("-modified_date", "article_rank")[:limit]
-  return articles
 
 # Create your views here.
 def get_articles_view(request):
   """
   Api Endpoint to fetch articles
   """
-  articles = get_user_articles(request)
+  limit = request.GET.get('limit', 90)
+  articles = get_user_articles(limit, request.user)
 
   return HttpResponse(json.dumps(articles), mimetype="application/json")
 
